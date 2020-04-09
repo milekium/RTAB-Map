@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- map server -->
+  <arg name="map_file" default="$(find my_robot)/maps/restaurant_map.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)"> 
+		<param name="frame_id" value="map"/> 
+	</node>
+
+      <!-- amcl -->
+  <node name="amcl" pkg="amcl" type="amcl" output="screen" >
+    <remap from="scan" to="my_robot/laser/scan"/>
+
+        <!--Overall filter parameters-->
+    <param name="initial_pose_x" value="-7.5"/> 
+    <param name="initial_pose_y" value="11.5"/>  
+    <param name="initial_pose_a" value="-1.57079"/> 
+		<param name="min_particles" value="1"/>	
+    <param name="max_particles" value="50"/>
+		<param name="update_min_d" value="0.01" />	
+    <param name="update_min_a" value="0.02"/> 
+    <param name="kld_err" value="0.01"/> 
+    <param name="kld_z" value="0.99"/> 
+    <param name="resample_interval" value="4"/> 
+    <param name="transform_tolerance" value="0.2"/> 
+    <param name="recovery_alpha_slow" value="0.0"/> 
+    <param name="recovery_alpha_fast" value="0.0"/> 
+    <param name="do_beamskip" value="true"/> 
+    <param name="beam_skip_distance" value="0.003"/> 
+    <param name="beam_skip_threshold" value="0.1"/>  		
+    <param name="initial_cov_xx" value="0.5*0.5"/> 
+    <param name="initial_cov_yy" value="0.5*0.5"/> 
+    <param name="initial_cov_aa" value="0.2618*0.2618"/> 
+    <param name="gui_publish_rate" value="10"/>
+    <param name="save_pose_rate" value="1"/>
+    <param name="use_map_topic" value="false"/>
+    <param name="first_map_only" value="false"/> 
+
+        <!--Laser model parameters-->
+    <param name="laser_model_type" value="likelihood_field"/> 
+    <param name="laser_min_range" value="-1.0"/> 
+    <param name="laser_max_range" value="-1.0"/> 
+		<param name="laser_max_beams" value="30"/>
+    <param name="laser_z_hit" value="0.95"/> 
+    <param name="laser_z_short" value="0.05" />
+    <param name="laser_z_max" value="0.05" />
+    <param name="laser_z_rand" value="0.05"/> 
+    <param name="laser_sigma_hit" value="0.2"/> 
+		<param name="laser_lambda_short" value="0.1"/> 
+		<param name="laser_likelihood_max_dist" value="2.0"/> 
+    
+				<!--Odometry model parameters-->
+    <param name="odom_model_type" value="omni-corrected"/> 
+		<param name="odom_alpha1" value="0.2"/> 
+		<param name="odom_alpha2" value="0.2"/> 
+		<param name="odom_alpha3" value="0.8"/> 
+		<param name="odom_alpha4" value="0.2"/> 
+		<param name="odom_alpha5" value="0.2"/> 
+		<param name="odom_frame_id" value="odom"/> 
+		<param name="base_frame_id" value="robot_footprint"/> 
+		<param name="global_frame_id" value="map"/>
+		<param name="tf_broadcast" value="false"/> 
+  </node>
+
+  <!-- Static transform between /odom and /map -->
+	<node pkg="tf" type="static_transform_publisher" name="odom_map_broadcaster" args="0 0 0 1.57079 0 0 /odom /map 100" />
+<!--  <node pkg="tf" type="static_transform_publisher" name="odom_robot_footprint" args="0 0 1 0 0 0 /robot_footprint /base_footprint 100"/>-->
+
+  <!-- move_base -->
+  <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
+    <remap from="scan" to="my_robot/laser/scan"/>
+    <param name="base_global_planner" value="navfn/NavfnROS" />
+    <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS"/>
+    <param name="controller_frequency" value="1" /> 
+    <param name="planner_frequency" value="1" /> 
+    <param name="planner_patience" value="5" /> 
+    <param name="controller_patience" value="15" /> 
+    <param name="conservative_reset_dist" value="0.3" /> 
+    <param name="recovery_behavior_enabled" value="true" />
+    <param name="clearing_rotation_allowed" value="true" /> 
+    <param name="shutdown_costmaps" value="false" /> 
+    <param name="oscillation_timeout" value="1" /> 
+    <param name="oscillation_distance" value="0.3" /> 
+    <param name="max_planning_retries" value="-1" />
+		
+    <rosparam file="$(find my_robot)/config/base_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find my_robot)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find my_robot)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find my_robot)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find my_robot)/config/global_costmap_params.yaml" command="load" />
+    
+  </node>
+
+
+</launch>
