@@ -50,7 +50,7 @@
 
 	<!-- wheels -->
   <joint type="continuous" name="left_front_wheel_hinge">
-    <origin xyz="0.15 0.15 0" rpy="0 0 0"/>
+    <origin xyz="0.15 0.16 0" rpy="0 0 0"/>
     <child link="left_front_wheel"/>
     <parent link="chassis"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>
@@ -92,7 +92,7 @@
 	</link>
 
   <joint type="continuous" name="right_front_wheel_hinge">
-    <origin xyz="0.15 -0.15 0" rpy="0 0 0"/>
+    <origin xyz="0.15 -0.16 0" rpy="0 0 0"/>
     <child link="right_front_wheel"/>
     <parent link="chassis"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>
@@ -134,7 +134,7 @@
 	</link>
 
   <joint type="continuous" name="left_back_wheel_hinge">
-    <origin xyz="-0.15 0.15 0" rpy="0 0 0"/>
+    <origin xyz="-0.15 0.16 0" rpy="0 0 0"/>
     <child link="left_back_wheel"/>
     <parent link="chassis"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>
@@ -176,7 +176,7 @@
 	</link>
 
   <joint type="continuous" name="right_back_wheel_hinge">
-    <origin xyz="-0.15 -0.15 0" rpy="0 0 0"/>
+    <origin xyz="-0.15 -0.16 0" rpy="0 0 0"/>
     <child link="right_back_wheel"/>
     <parent link="chassis"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>
@@ -217,9 +217,9 @@
     </inertial>
 	</link>
 
-	<!-- sensors -->
+	<!-- RGBD CAMERA SENSOR -->
   <joint type="fixed" name="camera_joint">
-    <origin xyz="0.275 0 0.045" rpy="0 0 0"/>
+    <origin xyz="0.275 0.075 0.045" rpy="0 0 0"/>
     <child link="camera"/>
     <parent link="chassis"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>
@@ -247,7 +247,38 @@
       />
     </inertial>
 	</link>	
+  <joint name="camera_optical_joint" type="fixed">
+    <origin xyz="0 -0.15 0" rpy="0 0 0"/>
+    <parent link="camera"/>
+    <child link="camera_optical"/>
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+  </joint>
 
+  <link name="camera_optical">
+    <collision name='camera_optical_collision'>
+      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+    <visual name='camera_optical_visual'>
+      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="0.1"/>
+      <origin xyz="0.0 0 0" rpy=" 0 0 0"/>
+      <inertia
+          ixx="1e-6" ixy="0" ixz="0"
+          iyy="0.000001" iyz="0"
+          izz="0.000001"
+      />
+    </inertial>
+  </link>
+
+	<!-- LASER SENSOR -->
   <joint type="fixed" name="hokuyo_joint">
     <origin xyz="0.275 0 -0.055" rpy="0 0 0"/>
     <child link="hokuyo"/>
