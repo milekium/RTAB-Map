@@ -9,7 +9,7 @@
 
       <!-- amcl -->
   <node name="amcl" pkg="amcl" type="amcl" output="screen" >
-    <remap from="scan" to="my_robot/laser/scan"/>
+    <remap from="scan" to="/laser/scan"/>
 
         <!--Overall filter parameters-->
     <param name="initial_pose_x" value="-7.5"/> 
@@ -68,7 +68,7 @@
 
   <!-- move_base -->
   <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
-    <remap from="scan" to="my_robot/laser/scan"/>
+    <remap from="scan" to="/laser/scan"/>
     <param name="base_global_planner" value="navfn/NavfnROS" />
     <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS"/>
     <param name="controller_frequency" value="1" /> 
