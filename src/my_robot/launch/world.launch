@@ -12,8 +12,9 @@
 
   <!-- Launch other relevant files-->
 <!--  <include file="$(find my_robot)/launch/robot_description.launch"/>-->
-  <include file="$(find my_robot)/launch/localization.launch"/>
-  <include file="$(find my_robot)/launch/mapping.launch"/>
+  <include file="$(find my_robot)/launch/amcl.launch"/>  
+<!--  <include file="$(find my_robot)/launch/mapping.launch"/>-->
+<!--  <include file="$(find my_robot)/launch/localization.launch"/>-->
 
 
   <!-- World File -->
