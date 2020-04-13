@@ -34,3 +34,5 @@ build
 devel
 env.sh
 params.txt
+src/my_robot/maps/rtabmap.db
+src/my_robot/maps/map_cloud.ply
