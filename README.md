@@ -4,7 +4,7 @@ Implemented together with acml location and move_base planing.
 
 # Final result
 After robot has visit all pasible allowed areas in the world, the generated robot rtab-map look like this:
-the gereated map can be download for (here)[https://mega.nz/file/mrJGlYTZ#LHIJOycRApdQUK5i4fGoMmMhCkK1ocdyRvP8Rh3NlgE]. (!!560MB)
+the gereated map can be download for [here](https://mega.nz/file/mrJGlYTZ#LHIJOycRApdQUK5i4fGoMmMhCkK1ocdyRvP8Rh3NlgE). (!!560MB)
 ![](src/my_robot/maps/rtab_map.png)
  
 
@@ -12,8 +12,9 @@ the gereated map can be download for (here)[https://mega.nz/file/mrJGlYTZ#LHIJOy
 # Install and Run
 
 Dependenties packages must be installed in your computer, if your using Lubuntu you can install as:
-```sudo apt-get install ros-kinetic-rtabmap-ros´´´
-for other installation system please check oficial (instructions)[https://github.com/introlab/rtabmap_ros#rtabmap_ros]
+```sudo apt-get install ros-kinetic-rtabmap-ros
+```
+for other installation system please check oficial [instructions](https://github.com/introlab/rtabmap_ros#rtabmap_ros)
 
 For running the code you need to build the project as :
 ``` cd <project_root_dir>: 
@@ -29,19 +30,19 @@ to make the robot actually use the RTAB-map capability, you need to run the robo
 ## Mapping
 Mapping state makes the robot generate a new map each time the code is run.
 to launch the robot in a mapping state run the following:
-´´´ 
+```
 roslaunch my_robot world.launch
 roslaunch my_robot mapping.launch
-´´´
+```
 
 ## Locations
 Location states allows the robot to use the previous generated map to locate itself and
 move arrond the world. 
 To launch the robot in a location state run the following:
-´´´ 
+```
 roslaunch my_robot world.launch
 roslaunch my_robot location.launch
-´´´
+```
 
 # Packages
 used packages:
