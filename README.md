@@ -4,9 +4,10 @@ Implemented together with acml location and move_base planing.
 
 # Final result
 After robot has visit all pasible allowed areas in the world, the generated robot rtab-map look like this:
-the gereated map can be download for [here](https://mega.nz/file/mrJGlYTZ#LHIJOycRApdQUK5i4fGoMmMhCkK1ocdyRvP8Rh3NlgE). (!!560MB)
+the gereated map can be download for [here](https://mega.nz/file/Kr5x3YDJ#UAQzoXGsuqNT73yCbGEm0rRFXAfErLKSmpokqoKYcYY). (!!332MB)
 ![](src/my_robot/maps/rtab_map.png)
- 
+
+Image shows that 5 closed loops where achieve.(G=5; in down-left side of screen).
 
 
 # Install and Run
